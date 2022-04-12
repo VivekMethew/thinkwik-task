@@ -6,6 +6,7 @@ const { verifyAccessToken } = require('../../Comman/auth-validators')
 
 const router = express.Router()
 
+// Create An Event
 router.post('/add', celebrate({
     body: {
         title: validation.event.title.required(),
@@ -17,10 +18,19 @@ router.post('/add', celebrate({
     }
 }),verifyAccessToken, eventsControllers.createEvents)
 
+// Get Events List
 router.get('/list', eventsControllers.getEvents)
+
+// Join Event
 router.post('/join',verifyAccessToken, eventsControllers.joinEvents)
+
+// Leave Event
 router.post('/leave',verifyAccessToken, eventsControllers.leaveEvents)
+
+// get Participants
 router.post('/participants',verifyAccessToken, eventsControllers.getParticipantAnEvents)
+
+// Get Detail Of Event
 router.post('/detail', celebrate({
     body: {
         userId: validation.user.objectId.required()
