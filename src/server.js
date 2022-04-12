@@ -21,6 +21,8 @@ app.use(express.urlencoded({extended:true}))
 // static public file path
 app.use('/public', express.static(path.join(__dirname, 'public')))
 
+app.use(cors())
+
 // set Routes
 app.use('/api',indexRoutes)
 
