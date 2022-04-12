@@ -50,3 +50,9 @@ Purpose of this system is to manage public events.
 - Security (Password saved in database, exposing data publically, etc.)
 - Test cases
 - Code quality
+
+
+## Completed Tast 
+
+- https://documenter.getpostman.com/view/11208897/UVyyuZCM Api Docs
+- https://github.com/VivekMethew/thinkwik-task   Source Code Link
