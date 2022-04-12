@@ -1,4 +1,5 @@
 const { signAccessToken } = require("../../Comman/auth-validators")
+const { base64File } = require("../../Comman/file.base64")
 const { usersEnt } = require("../../Entity")
 
 module.exports = {
@@ -82,20 +83,25 @@ module.exports = {
         try {
             let userId = req.payload.aud;
             let payload = req.body;
-            let result = await usersEnt.updateProfile(userId, payload)
-            if (result.success) {
-                res.status(result.code)
-                    .json({
-                        success: true,
-                        message: result.message
-                    })
-            } else {
-                res.status(result.code)
-                    .json({
-                        success: true,
-                        message: result.message
-                    })
-            }
+            base64File('profiles', 'public/profiles', req.body.file)
+                .then(async(image) => {
+                    payload.avtar = image.url
+                    let result = await usersEnt.updateProfile(userId, payload)
+                    if (result.success) {
+                        res.status(result.code)
+                            .json({
+                                success: true,
+                                message: result.message
+                            })
+                    } else {
+                        res.status(result.code)
+                            .json({
+                                success: true,
+                                message: result.message
+                            })
+                    }
+                }).catch(err => next(err))
+
         } catch (error) {
             next(error)
         }
